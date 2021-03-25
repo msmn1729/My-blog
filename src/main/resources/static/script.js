@@ -36,7 +36,7 @@ function addHTML(id, title, username, contents, modifiedAt) {
     $('#board-box').append(tempHtml);
 }
 
-function onClickWritePost() {
+function onClickMovePostpage() {
     window.location.href = "/post.html";
 }
 
@@ -46,18 +46,18 @@ function onClickWritePost() {
 // 사용자가 내용을 올바르게 입력하였는지 확인합니다.
 function isValidContents(contents) {
     if (contents === '') {
-        board('내용을 입력해주세요');
+        alert('내용을 입력해주세요');
         return false;
     }
     if (contents.trim().length > 140) {
-        board('공백 포함 140자 이하로 입력해주세요');
+        alert('공백 포함 140자 이하로 입력해주세요');
         return false;
     }
     return true;
 }
 
 // 메모를 생성합니다.
-function writePost() {
+function onClickWritePost() {
     let title = $('#title').val();
     let username = $('#username').val();
     let contents = $('#contents').val();
@@ -139,41 +139,16 @@ function addDetailHTML(id, title, username, contents, modifiedAt) {
                             <h3>${contents}</h3>
                             <br><br>
                             <p style="text-align: right">
-                                <button type="button" class="btn btn-info" onclick="onClickArticleModify(${id})">수정하기</button>
+                                <button type="button" class="btn btn-info" onclick="onClickMoveEditpage(${id})">수정하기</button>
                                 <button type="button" class="btn btn-danger" onclick="onClickArticleDelete(${id})">삭제하기</button>
                             </p>`;
     $('#post-box').append(tempHtml);
 }
 
 
-// 게시글 수정
-function onClickArticleModify(id) {
-
+// 게시글 수정페이지로 이동
+function onClickMoveEditpage(id) {
     window.location.href = "/edit.html?" + id;
-
-    // // 1. 작성 대상 메모의 username과 contents 를 확인합니다.
-    // let username = $(`#${id}-username`).text().trim();
-    // let contents = $(`#${id}-textarea`).val().trim();
-    //
-    // // 2. 작성한 메모가 올바른지 isValidContents 함수를 통해 확인합니다.
-    // if (isValidContents(contents) == false) {
-    //     return;
-    // }
-    //
-    // // 3. 전달할 data JSON으로 만듭니다.
-    // let data = {'username': username, 'contents': contents};
-    //
-    // // 4. PUT /api/memos/{id} 에 data를 전달합니다.
-    // $.ajax({
-    //     type: "PUT",
-    //     url: "/board/" + id,
-    //     data: JSON.stringify(data),
-    //     contentType: 'application/json',
-    //     success: function (response) {
-    //         alert("수정 완료!");
-    //         window.location.href = "/index.html";
-    //     }
-    // })
 }
 
 // 게시글 삭제
@@ -219,7 +194,28 @@ function addEditHTML(id, title, username, contents, modifiedAt) {
                     </div>
                     <div style="text-align: right">
                         <button type="button" class="btn btn-success" onclick="onClickMainPage()">목록으로 이동</button>
-                        <button type="button" class="btn btn-primary" onclick="writePost()">등록하기</button>
+                        <button type="button" class="btn btn-primary" onclick="onClickArticleEdit(${id})">수정완료</button>
                     </div>`;
     $('#post-box').append(tempHtml);
+}
+
+function onClickArticleEdit(id) {
+    let title = $('#title').val();
+    let username = $('#username').val();
+    let contents = $('#contents').val();
+
+    if (isValidContents(contents) === false) return;
+
+    let data = {'title': title, 'username': username, 'contents': contents};
+
+    $.ajax({
+        type: "PUT",
+        url: "/board/" + id,
+        data: JSON.stringify(data),
+        contentType: 'application/json',
+        success: function (response) {
+            alert("수정 완료!");
+            window.location.href = "/index.html";
+        }
+    })
 }
