@@ -27,13 +27,12 @@ function getMessages() {
 // 저장된 글을 볼 수 있도록 HTML로 그려줌
 function addHTML(id, title, username, contents, modifiedAt) {
     let tempHtml = `<tr>
-                                <td class="title">
-                                    <a href="/detail.html?${id}">${title}</a>
-                                </td>
-                                <td class="name">${username}</td>
-                                <td class="date">${modifiedAt[0]}<br>${modifiedAt[1]}</td>
-                                <td class="hit">1234</td>
-                            </tr>`;
+                        <td class="title">
+                            <a href="/detail.html?${id}">${title}</a>
+                        </td>
+                        <td class="name">${username}</td>
+                        <td class="date">${modifiedAt[0]}<br>${modifiedAt[1]}</td>
+                    </tr>`;
     $('#board-box').append(tempHtml);
 }
 
@@ -43,7 +42,6 @@ function onClickMovePostpage() {
 
 
 /////////////////post.html의 JS
-
 // 사용자가 내용을 올바르게 입력하였는지 확인합니다.
 function isValidContents(contents) {
     if (contents === '') {
@@ -139,6 +137,7 @@ function addDetailHTML(id, title, username, contents, modifiedAt) {
                             <h3>${contents}</h3>
                             <br><br>
                             <p style="text-align: right">
+                            <button type="button" class="btn btn-success" onclick="onClickMainPage()">목록으로 이동</button>
                                 <button type="button" class="btn btn-info" onclick="onClickMoveEditpage(${id})">수정하기</button>
                                 <button type="button" class="btn btn-danger" onclick="onClickArticleDelete(${id})">삭제하기</button>
                             </p>`;
