@@ -16,76 +16,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@500&display=swap" rel="stylesheet">
     <!--Custom styles-->
     <link rel="stylesheet" type="text/css" href="styles.css">
-
-    <script>
-        // 사용자가 내용을 올바르게 입력하였는지 확인합니다.
-        function isValidContents(contents) {
-            if (contents === '') {
-                alert('내용을 입력해주세요');
-                return false;
-            }
-            if (contents.trim().length > 140) {
-                alert('공백 포함 140자 이하로 입력해주세요');
-                return false;
-            }
-            return true;
-        }
-
-        // 메모를 생성합니다.
-        function writePost() {
-            let title = $('#title').val();
-            let username = $('#username').val();
-            let contents = $('#contents').val();
-
-            if (isValidContents(contents) === false) {
-                return;
-            }
-
-            let data = {'title': title, 'username': username, 'contents': contents};
-
-            $.ajax({
-                type: "POST",
-                url: "/board",
-                contentType: "application/json", // JSON 형식으로 전달함을 알리기
-                data: JSON.stringify(data),
-                success: function (response) {
-                    alert("게시글 등록성공!");
-                    window.location.href = "/index.html";
-                }
-            })
-        }
-
-        // 수정 버튼을 눌렀을 때, 기존 작성 내용을 textarea 에 전달합니다.
-        // 숨길 버튼을 숨기고, 나타낼 버튼을 나타냅니다.
-        function editPost(id) {
-            showEdits(id);
-            let contents = $(`#${id}-contents`).text().trim();
-            $(`#${id}-textarea`).val(contents);
-        }
-
-        function showEdits(id) {
-            $(`#${id}-editarea`).show();
-            $(`#${id}-submit`).show();
-            $(`#${id}-delete`).show();
-
-            $(`#${id}-contents`).hide();
-            $(`#${id}-edit`).hide();
-        }
-
-        function hideEdits(id) {
-            $(`#${id}-editarea`).hide();
-            $(`#${id}-submit`).hide();
-            $(`#${id}-delete`).hide();
-
-            $(`#${id}-contents`).show();
-            $(`#${id}-edit`).show();
-        }
-
-        function onClickMainPage() {
-            window.location.href = "/index.html";
-        }
-
-    </script>
+    <script src="script.js"></script>
 </head>
 
 <body>
