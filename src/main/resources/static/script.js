@@ -16,7 +16,8 @@ function getMessages() {
                 let title = board.title;
                 let username = board.username;
                 let contents = board.contents;
-                let modifiedAt = board.modifiedAt;
+                let modifiedAt = board.modifiedAt.split('T');
+                modifiedAt[1] = modifiedAt[1].split('.')[0];
                 addHTML(id, title, username, contents, modifiedAt);
             }
         }
@@ -30,7 +31,7 @@ function addHTML(id, title, username, contents, modifiedAt) {
                                     <a href="/detail.html?${id}">${title}</a>
                                 </td>
                                 <td class="name">${username}</td>
-                                <td class="date">${modifiedAt}</td>
+                                <td class="date">${modifiedAt[0]}<br>${modifiedAt[1]}</td>
                                 <td class="hit">1234</td>
                             </tr>`;
     $('#board-box').append(tempHtml);
@@ -111,8 +112,6 @@ function onClickMainPage() {
 }
 
 ///////////////////detail.html JS
-
-
 // 메모를 불러와서 보여줍니다.
 function getDetail(id) {
     $.ajax({
@@ -124,7 +123,8 @@ function getDetail(id) {
             let title = board.title;
             let username = board.username;
             let contents = board.contents;
-            let modifiedAt = board.modifiedAt;
+            let modifiedAt = board.modifiedAt.split('T');
+            modifiedAt[1] = modifiedAt[1].split('.')[0];
             addDetailHTML(id, title, username, contents, modifiedAt);
         }
     })
@@ -134,7 +134,7 @@ function getDetail(id) {
 function addDetailHTML(id, title, username, contents, modifiedAt) {
     let tempHtml = `<h1>${title}</h1>
                             <p style="text-align: left">${username}</p>
-                            <p style="text-align: right">${modifiedAt}</p>
+                            <p style="text-align: right">${modifiedAt[0]}<br>${modifiedAt[1]}</p>
                             <br><br>
                             <h3>${contents}</h3>
                             <br><br>
