@@ -36,47 +36,6 @@ function addHTML(id, title, username, contents, modifiedAt) {
     $('#board-box').append(tempHtml);
 }
 
-
-// 메모를 수정합니다.
-function submitEdit(id) {
-    // 1. 작성 대상 메모의 username과 contents 를 확인합니다.
-    let username = $(`#${id}-username`).text().trim();
-    let contents = $(`#${id}-textarea`).val().trim();
-
-    // 2. 작성한 메모가 올바른지 isValidContents 함수를 통해 확인합니다.
-    if (isValidContents(contents) == false) {
-        return;
-    }
-
-    // 3. 전달할 data JSON으로 만듭니다.
-    let data = {'username': username, 'contents': contents};
-
-    // 4. PUT /api/memos/{id} 에 data를 전달합니다.
-    $.ajax({
-        type: "PUT",
-        url: `/api/memos/${id}`,
-        data: JSON.stringify(data),
-        contentType: 'application/json',
-        success: function (response) {
-            board("변경이 완료되었습니다.");
-            window.location.reload();
-        }
-    })
-}
-
-// 메모를 삭제합니다.
-function deleteOne(id) {
-    // 1. DELETE /api/memos/{id} 에 요청해서 메모를 삭제합니다.
-    $.ajax({
-        type: "DELETE",
-        url: `/api/memos/${id}`,
-        success: function (response) {
-            board("삭제가 완료되었습니다.");
-            window.location.reload();
-        }
-    });
-}
-
 function onClickWritePost() {
     window.location.href = "/post.html";
 }
@@ -151,7 +110,6 @@ function onClickMainPage() {
     window.location.href = "/index.html";
 }
 
-
 ///////////////////detail.html JS
 
 
@@ -181,8 +139,87 @@ function addDetailHTML(id, title, username, contents, modifiedAt) {
                             <h3>${contents}</h3>
                             <br><br>
                             <p style="text-align: right">
-                                <button type="button" class="btn btn-info">수정하기</button>
-                                <button type="button" class="btn btn-danger">삭제하기</button>
+                                <button type="button" class="btn btn-info" onclick="onClickArticleModify(${id})">수정하기</button>
+                                <button type="button" class="btn btn-danger" onclick="onClickArticleDelete(${id})">삭제하기</button>
                             </p>`;
+    $('#post-box').append(tempHtml);
+}
+
+
+// 게시글 수정
+function onClickArticleModify(id) {
+
+    window.location.href = "/edit.html?" + id;
+
+    // // 1. 작성 대상 메모의 username과 contents 를 확인합니다.
+    // let username = $(`#${id}-username`).text().trim();
+    // let contents = $(`#${id}-textarea`).val().trim();
+    //
+    // // 2. 작성한 메모가 올바른지 isValidContents 함수를 통해 확인합니다.
+    // if (isValidContents(contents) == false) {
+    //     return;
+    // }
+    //
+    // // 3. 전달할 data JSON으로 만듭니다.
+    // let data = {'username': username, 'contents': contents};
+    //
+    // // 4. PUT /api/memos/{id} 에 data를 전달합니다.
+    // $.ajax({
+    //     type: "PUT",
+    //     url: "/board/" + id,
+    //     data: JSON.stringify(data),
+    //     contentType: 'application/json',
+    //     success: function (response) {
+    //         alert("수정 완료!");
+    //         window.location.href = "/index.html";
+    //     }
+    // })
+}
+
+// 게시글 삭제
+function onClickArticleDelete(id) {
+    $.ajax({
+        type: "DELETE",
+        url: "/board/" + id,
+        success: function (response) {
+            alert("삭제 완료!");
+            window.location.href = "/index.html";
+        }
+    });
+}
+
+
+//////////////////////////////// edit.html JS
+function getEdit(id) {
+    $.ajax({
+        type: "GET",
+        url: "/board/" + id,
+        success: function (response) {
+            let board = response;
+            let id = board.id;
+            let title = board.title;
+            let username = board.username;
+            let contents = board.contents;
+            let modifiedAt = board.modifiedAt;
+            addEditHTML(id, title, username, contents, modifiedAt);
+        }
+    })
+}
+
+// 저장된 글을 볼 수 있도록 HTML로 그려줌
+function addEditHTML(id, title, username, contents, modifiedAt) {
+    let tempHtml = `<div class="form-group">
+                        <input id="title" class="form-control" value=${title}>
+                    </div>
+                    <div class="form-group">
+                        <input id="username" class="form-control" value=${username}>
+                    </div>
+                    <div class="form-group">
+                        <textarea id="contents" class="form-control" rows="3">${contents}</textarea>
+                    </div>
+                    <div style="text-align: right">
+                        <button type="button" class="btn btn-success" onclick="onClickMainPage()">목록으로 이동</button>
+                        <button type="button" class="btn btn-primary" onclick="writePost()">등록하기</button>
+                    </div>`;
     $('#post-box').append(tempHtml);
 }
