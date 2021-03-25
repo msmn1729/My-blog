@@ -27,6 +27,13 @@ public class BoardController {
         return boardRepository.findAllByOrderByModifiedAtDesc();
     }
 
+    @GetMapping("/board/{id}")
+    public Board readBoardArticle(@PathVariable Long id) {
+        return boardRepository.findById(id).orElseThrow(
+                () -> new IllegalArgumentException("해당 글이 존재하지 않습니다.")
+        );
+    }
+
     @PutMapping("/board/{id}")
     public Long updateBoard(@PathVariable Long id, @RequestBody BoardRequestDto boardRequestDto) {
         return boardService.update(id, boardRequestDto);
