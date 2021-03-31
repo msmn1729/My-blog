@@ -1,8 +1,8 @@
 package com.sparta.myblog.service;
 
 import com.sparta.myblog.domain.Board;
-import com.sparta.myblog.domain.BoardRepository;
-import com.sparta.myblog.domain.BoardRequestDto;
+import com.sparta.myblog.repository.BoardRepository;
+import com.sparta.myblog.dto.BoardRequestDto;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 

@@ -58,7 +58,7 @@ function isValidContents(contents) {
 // 메모를 생성합니다.
 function onClickWritePost() {
     let title = $('#title').val();
-    let username = $('#username').val();
+    let username = $('#username').text(); // 이 부분은 val로 불러올 수 없음
     let contents = $('#contents').val();
 
     if (isValidContents(contents) === false) {
@@ -74,7 +74,7 @@ function onClickWritePost() {
         data: JSON.stringify(data),
         success: function (response) {
             alert("게시글 등록성공!");
-            window.location.href = "/index.html";
+            window.location.href = "/";
         }
     })
 }
@@ -106,7 +106,7 @@ function hideEdits(id) {
 }
 
 function onClickMainPage() {
-    window.location.href = "/index.html";
+    window.location.href = "/";
 }
 
 ///////////////////detail.html JS
@@ -157,7 +157,7 @@ function onClickArticleDelete(id) {
         url: "/board/" + id,
         success: function (response) {
             alert("삭제 완료!");
-            window.location.href = "/index.html";
+            window.location.href = "/";
         }
     });
 }
@@ -214,7 +214,7 @@ function onClickArticleEdit(id) {
         contentType: 'application/json',
         success: function (response) {
             alert("수정 완료!");
-            window.location.href = "/index.html";
+            window.location.href = "/";
         }
     })
 }

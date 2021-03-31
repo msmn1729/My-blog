@@ -1,5 +1,6 @@
-package com.sparta.myblog.domain;
+package com.sparta.myblog.repository;
 
+import com.sparta.myblog.domain.Board;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.List;

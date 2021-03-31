@@ -1,4 +1,4 @@
-package com.sparta.myblog.domain;
+package com.sparta.myblog.dto;
 
 import lombok.Getter;
 

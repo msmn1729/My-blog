@@ -43,7 +43,7 @@ body {
     height: 100%;
     width: 100%;
     /*background-color: #dee2e6;*/
-    background-image: url('/images/background.png');
+    background-image: url('../images/background.png');
     background-size: cover;
     background-repeat: no-repeat;
 }
