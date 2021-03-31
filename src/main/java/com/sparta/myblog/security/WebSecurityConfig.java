@@ -30,9 +30,11 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers("/user/**").permitAll()
                 .antMatchers("/h2-console/**").permitAll()
                 // 비회원 게시물 목록 조회 허용
-                .antMatchers("/").permitAll()
+                .antMatchers("/").permitAll() // 작동 유무?
+//                .antMatchers("/**").permitAll() // 확실히 작동함
+                .antMatchers("/index.html").permitAll()
 //                // 비회원 게시물 상세보기 허용
-//                .antMatchers("/detail/**").permitAll()
+                .antMatchers("/detail/**").permitAll()
 
                 // 그 외 모든 요청은 인증과정 필요
                 .anyRequest().authenticated()
