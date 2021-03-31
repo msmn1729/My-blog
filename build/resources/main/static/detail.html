@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+          integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm"
+          crossorigin="anonymous">
+
+    <title>게시판</title>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@500&display=swap" rel="stylesheet">
+    <!--Custom styles-->
+    <link rel="stylesheet" type="text/css" href="styles.css">
+    <script src="script.js"></script>
+    <script>
+        $(document).ready(function () {
+            // HTML 문서를 로드할 때마다 실행합니다.
+            let id = window.location.search.substring(1); // 쿼리스트링 맨 앞에 ?제거
+            getDetail(id);
+        })
+    </script>
+</head>
+
+<body>
+<div class="background-header">
+
+</div>
+<div class="background-body">
+
+</div>
+<div class="wrap">
+    <div class="header">
+        <h2>My blog</h2>
+        <p>
+            상세페이지
+        </p>
+    </div>
+
+    <div id="post-box" class="form-post">
+    </div>
+</div>
+</body>
+</html>
