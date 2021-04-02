@@ -19,13 +19,13 @@
 <div id="login-form">
     <div id="login-title" style="text-align: center">Login</div>
     <button id="login-kakao-btn"
-            onclick="location.href='https://kauth.kakao.com/oauth/authorize?client_id=9cae9bc6d9672771328c43c856d73e2d&redirect_uri=http://localhost:8080/user/kakao/callback&response_type=code'">
+            onclick="location.href='https://kauth.kakao.com/oauth/authorize?client_id=9cae9bc6d9672771328c43c856d73e2d&redirect_uri=http://54.180.113.24/user/kakao/callback&response_type=code'">
         카카오로 로그인하기
     </button>
     <button id="login-id-btn" onclick="location.href='/user/signup'">
         회원 가입하기
     </button>
-    <div th:if="${loginError}" class="alert alert-danger" role="alert">로그인에 실패하였습니다.</div>
+<!--    <div th:if="${loginError}" class="alert alert-danger" role="alert">로그인에 실패하였습니다.</div>-->
     <form action="/user/login" method="post">
         <div class="login-id-label">아이디</div>
         <input type="text" name="username" class="login-input-box">
