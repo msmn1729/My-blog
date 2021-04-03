@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
 
 <head>
     <meta charset="UTF-8">
@@ -35,9 +35,20 @@
 </div>
 <div class="wrap">
     <div class="header">
+        <div style="text-align: right">
+            <button th:if="${username}" class="btn btn-outline-warning" onclick="window.location.href = '/user/logout'"
+                    style="margin-top: 1%; margin-right: 10%">로그아웃
+            </button>
+            <button th:unless="${username}" class="btn btn-warning" onclick="window.location.href = 'login.html'"
+                    style="margin-top: 1%; margin-right: 10%">로그인
+            </button>
+        </div>
         <h2>My blog</h2>
-        <p>
-            글수정
+        <p th:if="${username}">
+            <span id="username" th:text="${username}"></span>님 반갑습니다!
+        </p>
+        <p th:unless="${username}">
+            글을 작성하려면 로그인 해주세요!
         </p>
     </div>
 

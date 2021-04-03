@@ -36,7 +36,11 @@ function addHTML(id, title, username, contents, modifiedAt) {
     $('#board-box').append(tempHtml);
 }
 
-function onClickMovePostpage() {
+function onClickMovePostpage(username) {
+    if (username === '') {
+        alert('글을 작성하려면 로그인 해주세요!');
+        return;
+    }
     window.location.href = "/post.html";
 }
 
@@ -109,60 +113,6 @@ function onClickMainPage() {
     window.location.href = "/";
 }
 
-///////////////////detail.html JS
-// 메모를 불러와서 보여줍니다.
-function getDetail(id) {
-    $.ajax({
-        type: "GET",
-        url: "/board/" + id,
-        success: function (response) {
-            let board = response;
-            let id = board.id;
-            let title = board.title;
-            let username = board.username;
-            let contents = board.contents;
-            let modifiedAt = board.modifiedAt.split('T');
-            modifiedAt[1] = modifiedAt[1].split('.')[0];
-            addDetailHTML(id, title, username, contents, modifiedAt);
-        }
-    })
-}
-
-// 저장된 글을 볼 수 있도록 HTML로 그려줌
-function addDetailHTML(id, title, username, contents, modifiedAt) {
-    let tempHtml = `<h1>${title}</h1>
-                            <p style="text-align: left">${username}</p>
-                            <p style="text-align: right">${modifiedAt[0]}<br>${modifiedAt[1]}</p>
-                            <br><br>
-                            <h3>${contents}</h3>
-                            <br><br>
-                            <p style="text-align: right">
-                            <button type="button" class="btn btn-success" onclick="onClickMainPage()">목록으로 이동</button>
-                                <button type="button" class="btn btn-info" onclick="onClickMoveEditpage(${id})">수정하기</button>
-                                <button type="button" class="btn btn-danger" onclick="onClickArticleDelete(${id})">삭제하기</button>
-                            </p>`;
-    $('#post-box').append(tempHtml);
-}
-
-
-// 게시글 수정페이지로 이동
-function onClickMoveEditpage(id) {
-    window.location.href = "/edit.html?" + id;
-}
-
-// 게시글 삭제
-function onClickArticleDelete(id) {
-    $.ajax({
-        type: "DELETE",
-        url: "/board/" + id,
-        success: function (response) {
-            alert("삭제 완료!");
-            window.location.href = "/";
-        }
-    });
-}
-
-
 //////////////////////////////// edit.html JS
 function getEdit(id) {
     $.ajax({
@@ -186,10 +136,7 @@ function addEditHTML(id, title, username, contents, modifiedAt) {
                         <input id="title" class="form-control" value=${title}>
                     </div>
                     <div class="form-group">
-                        <input id="username" class="form-control" value=${username}>
-                    </div>
-                    <div class="form-group">
-                        <textarea id="contents" class="form-control" rows="3">${contents}</textarea>
+                        <textarea id="contents" class="form-control" rows="5">${contents}</textarea>
                     </div>
                     <div style="text-align: right">
                         <button type="button" class="btn btn-success" onclick="onClickMainPage()">목록으로 이동</button>
@@ -200,7 +147,7 @@ function addEditHTML(id, title, username, contents, modifiedAt) {
 
 function onClickArticleEdit(id) {
     let title = $('#title').val();
-    let username = $('#username').val();
+    let username = $('#username').text();
     let contents = $('#contents').val();
 
     if (isValidContents(contents) === false) return;

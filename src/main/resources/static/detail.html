@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
 
 <head>
     <meta charset="UTF-8">
@@ -15,34 +15,65 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@500&display=swap" rel="stylesheet">
     <!--Custom styles-->
-    <link rel="stylesheet" type="text/css" href="/css/styles.css">
-    <script src="js/script.js"></script>
-    <script>
-        $(document).ready(function () {
-            // HTML 문서를 로드할 때마다 실행합니다.
-            let id = window.location.search.substring(1); // 쿼리스트링 맨 앞에 ?제거
-            getDetail(id);
-        })
-    </script>
+    <link rel="stylesheet" type="text/css" href="css/styles.css">
+    <link rel="stylesheet" href="css/detail.css"/>
+    <!--    <script src="js/script.js"></script>-->
+    <script src="js/detail.js"></script>
 </head>
 
 <body>
-<div class="background-header">
-
-</div>
+<div class="background-header"></div>
 <div class="background-body">
 
 </div>
 <div class="wrap">
     <div class="header">
+        <div style="text-align: right">
+            <button th:if="${username}" class="btn btn-outline-warning" onclick="window.location.href = '/user/logout'"
+                    style="margin-top: 1%; margin-right: 10%">로그아웃
+            </button>
+            <button th:unless="${username}" class="btn btn-warning" onclick="window.location.href = 'login.html'"
+                    style="margin-top: 1%; margin-right: 10%">로그인
+            </button>
+        </div>
         <h2>My blog</h2>
-        <p>
-            상세페이지
+        <p th:if="${username}">
+            <span id="username" th:text="${username}"></span>님 반갑습니다!
+        </p>
+        <p th:unless="${username}">
+            글을 작성하려면 로그인 해주세요!
         </p>
     </div>
 
     <div id="post-box" class="form-post">
     </div>
+
+    <div class="comments-container">
+        <div class="show_username">
+            <div th:if="!${username}">
+                댓글을 작성하려면 로그인 해주세요! <br/>
+                <a href="/user/login" class="link-signup">로그인 하러 가기</a>
+            </div>
+        </div>
+        <textarea
+                id="comment-contents"
+                class="form-control"
+                rows="5"
+                placeholder="댓글을 마음껏 입력해주세요😄"
+        ></textarea>
+        <div style="text-align: right">
+            <button
+                    class="btn btn-light"
+                    onclick="create_comment()"
+                    style="margin-top: 1%;">작성
+            </button>
+        </div>
+
+        <div class="comment__card-box">
+        </div>
+    </div>
+
+
 </div>
 </body>
 </html>
