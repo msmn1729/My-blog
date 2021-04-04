@@ -20,15 +20,6 @@ public class HomeController {
         return "index";
     }
 
-    // 관리자권한 안씀
-//    @Secured("ROLE_ADMIN")
-//    @GetMapping("/admin")
-//    public String admin(Model model, @AuthenticationPrincipal UserDetailsImpl userDetails) {
-//        model.addAttribute("username", userDetails.getUsername());
-//        model.addAttribute("admin", true);
-//        return "index";
-//    }
-
     @GetMapping("/post.html")
     public String post(Model model, @AuthenticationPrincipal UserDetailsImpl userDetails) {
         if (userDetails == null) {
@@ -37,5 +28,25 @@ public class HomeController {
         }
         model.addAttribute("username", userDetails.getUsername());
         return "post";
+    }
+
+    @GetMapping("/detail.html")
+    public String detail(Model model, @AuthenticationPrincipal UserDetailsImpl userDetails) {
+        if (userDetails == null) {
+            model.addAttribute("message","null" );
+            return "detail";
+        }
+        model.addAttribute("username", userDetails.getUsername());
+        return "detail";
+    }
+
+    @GetMapping("/edit.html")
+    public String edit(Model model, @AuthenticationPrincipal UserDetailsImpl userDetails) {
+        if (userDetails == null) {
+            model.addAttribute("message","null" );
+            return "edit";
+        }
+        model.addAttribute("username", userDetails.getUsername());
+        return "edit";
     }
 }
