@@ -16,22 +16,28 @@
 
 ## 메인페이지(방문자)
 ![image](https://user-images.githubusercontent.com/59201008/115713015-7ce6bc80-a3b0-11eb-9548-5d9efb9884eb.png)
+
 ------
 ## 로그인
 ![image](https://user-images.githubusercontent.com/59201008/115713038-84a66100-a3b0-11eb-96c1-33a1fca0958d.png)
+
 ------
 ## 회원가입
 ![image](https://user-images.githubusercontent.com/59201008/115713065-8c660580-a3b0-11eb-9619-afe4677e0230.png)
+
 ------
 ## 메인페이지(회원)
 ![image](https://user-images.githubusercontent.com/59201008/115713096-95ef6d80-a3b0-11eb-90b4-5d8d60278d9d.png)
+
 ------
 ## 게시글쓰기
 ![image](https://user-images.githubusercontent.com/59201008/115713167-ac95c480-a3b0-11eb-9f29-e636943f9eb4.png)
+
 ------
 ## 게시글 인가처리
 ![image](https://user-images.githubusercontent.com/59201008/115713249-c1725800-a3b0-11eb-945e-2b6916510548.png)
 - 본인이 작성한 게시글만 수정, 삭제가 가능하도록 구현
+
 ------
 ## 댓글 인가처리
 ![image](https://user-images.githubusercontent.com/59201008/115713293-cc2ced00-a3b0-11eb-915f-7709e07e872e.png)
